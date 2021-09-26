@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%-include('./inc/head') %>
+</head>
+<body>
+    <%-include('./inc/nav') %>
+    <section>
+        <a href="/admin/add">Add New Writing</a>
+        <h1>Blogs</h1>
+        <ul>
+            <% blogs.forEach(blog => { %>
+                <ul>
+                    <li>
+                        <p><%= blog.title %> </p>
+                        <a class="del" data-doc="<%= blog._id %>">Delete</a>
+                    </li>
+                </ul>
+            <% }) %>
+        </ul>
+    </section>
+
+    <script>
+        const del = document.querySelectorAll('a.del');
+        const delLink = [].slice.call(del);
+
+        delLink.forEach((element,index) => {
+            element.addEventListener('click',(e)=>{
+            const endpoint  = `/admin/delete/${element.dataset.doc}`;
+
+            fetch(endpoint,{
+                method:'DELETE'
+            }).then((response)=>{
+                response.json()
+            })
+            .then((data)=>{
+                window.location.href = data.link;
+            })
+            .catch(err=> console.log(err));
+        })
+        });
+
+</script>
+</body>
+</html>
