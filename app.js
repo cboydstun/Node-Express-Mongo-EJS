@@ -6,7 +6,7 @@ require('dotenv').config()
 
 //initialize app and port
 const app = express()
-const port = 8080
+const SERVER_PORT = process.env.PORT || 8080
 
 //import middleware
 const { requireAuth, checkUser } = require('./middlewares/authMiddleware')
@@ -56,8 +56,8 @@ app.get('/about', (req, res) => {
 })
 
 //port running
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`)
+app.listen(SERVER_PORT, () => {
+  console.log(`Server is running on port ${SERVER_PORT}`)
 })
 
 //error handling
